@@ -1,0 +1,3 @@
+nimi = ""
+esineet = []
+sijainti = huone

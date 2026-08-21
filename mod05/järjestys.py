@@ -5,5 +5,5 @@ while numero != "":
     numero = input("Anna numero, lopettaaksesi jätä tyhjäksi: ")
 else:
     numero_lista.sort()
-    print(numero_lista)
+    print("Isoin numero: " + str(max(numero_lista)) + " ja pienin numero: " + str(min(numero_lista)))
     
