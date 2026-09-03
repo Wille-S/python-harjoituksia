@@ -1,3 +1,0 @@
-nimi = ""
-esineet = []
-sijainti = huone
