@@ -1,6 +1,20 @@
-def choice(desc, options):
+import save
+
+GLOBAL_COMMANDS = ["tallenna", "ohje", "päävalikko"]
+
+def choice(desc, options, player):
     while True:
         decision = input(desc).lower()
+
+        if decision == "tallenna":
+            save.save_game(player)
+            print("Tallennettu.")
+            continue
+        elif decision == "ohje":
+            print("tallenna = tallenna peli, päävalikko = palaa päävalikkoon......")
+            continue
+        elif decision == "päävalikko":
+            return "__return__"
         if decision in options:
             return decision
         else:
@@ -11,7 +25,7 @@ def load_scene1a(player):
     print("Heräsit juuri ja et muista muuta kuin nimesi, " + username)
     decision = choice(
         "Löydät itsesi hirsimökistä. Mitä haluat tehdä? Tutki huonetta (T)) tai lähde ulos (U): ",
-        ["t", "u"]
+        ["t", "u"], player
     )
 
     if decision == "u":
@@ -22,7 +36,7 @@ def load_scene1a(player):
 def load_scene1b(player):
     decision = choice(
         "Katsot ympärillesi ja löydät pampun(ase)(P) ja karkkia(K), päätät ottaa mukaan jomman kumman ja lähteä ulos: ",
-        ["p", "k"]
+        ["p", "k"], player
     )
     if decision == "p":
         player.items.append("pamppu")
@@ -34,7 +48,7 @@ def load_scene2(player):
     print(player.items)
     decision = choice(
         "Olet hirsimökin ulkopuolella ja näät edessäsi kyltin, joka osoittaa kahta eri polkua, vasen kylään(V) ja oikea luolaan(O), mihin menet?: ",
-        ["v", "o"]
+        ["v", "o"], player
     )
     if decision == "V":
         return "village"

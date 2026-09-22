@@ -26,6 +26,8 @@ def run_game(player):
     current_scene = player.current_scene
     while current_scene is not None:
         current_scene = scene_dictionary[current_scene](player)
+        if current_scene == "__return__":
+            return
         player.current_scene = current_scene
 
 def start_game():
@@ -51,19 +53,21 @@ def start_game():
 
 while True:
     main_menu()
-    choice = input("Valitse (1-4): ")
+    command = input("Valitse (1-4): ")
 
-    if choice == "1":
+    if command == "1":
         start_game()
-    elif choice == "2":
-        if save.save_exist():
-            pass ## todo
+    elif command == "2":
+        typed_name = input("Syötä nimi: ")
+        if save.save_exists_for(typed_name):
+            loaded_player = save.load_game(typed_name)
+            run_game(loaded_player)
         else:
-            print("Tallennusdataa ei ole")
+            print("Tallennusta ei löytynyt tälle nimelle.")
             input("\nPaina enter palataksesi päävalikkoon.")
-    elif choice == "3":
+    elif command == "3":
         play_guide()
-    elif choice == "4":
+    elif command == "4":
         print("Kiitos kun pelasit")
         sys.exit()
     else:
