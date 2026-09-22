@@ -26,6 +26,7 @@ def run_game(player):
     current_scene = player.current_scene
     while current_scene is not None:
         current_scene = scene_dictionary[current_scene](player)
+        player.current_scene = current_scene
 
 def start_game():
     clear_screen()
