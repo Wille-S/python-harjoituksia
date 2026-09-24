@@ -24,6 +24,7 @@ def save_game(player):
         "current_scene": player.current_scene,
         "items": player.items,
         "health": player.health,
+        "weapon": player.weapon
     }
 
     with open("tallennus.json", "w") as f:

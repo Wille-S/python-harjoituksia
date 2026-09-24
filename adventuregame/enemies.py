@@ -1,1 +1,3 @@
-#todo
+class Enemy:
+    def __init__(self, name, health, damage_range):
+        ...

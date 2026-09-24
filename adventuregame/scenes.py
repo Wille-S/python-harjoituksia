@@ -1,7 +1,12 @@
 import save
+from player import Weapon
 
-GLOBAL_COMMANDS = ["tallenna", "ohje", "päävalikko"]
+GLOBAL_COMMANDS = ["status", "tallenna", "ohje", "päävalikko"]
 
+def change_weapon(player, new_weapon):
+    print(f"Vaihoit aseen {player.weapon} aseeseen {new_weapon}")
+    player.weapon = new_weapon
+    
 def choice(desc, options, player):
     while True:
         decision = input(desc).lower()
@@ -15,6 +20,9 @@ def choice(desc, options, player):
             continue
         elif decision == "päävalikko":
             return "__return__"
+        elif decision == "status":
+            print("HP: " + str(player.health))
+            print("Tavarat: " + str(player.items))
         if decision in options:
             return decision
         else:
@@ -39,6 +47,7 @@ def load_scene1b(player):
         ["p", "k"], player
     )
     if decision == "p":
+        change_weapon(player, Weapon("Pamppu", (4, 8)))
         player.items.append("pamppu")
     elif decision == "k":
         player.items.append("karkki")
@@ -61,7 +70,7 @@ def load_scene3_1(player):
 def load_scene3_2(player):
     print("lorem ipsum")
 
-scene_map = {
+scene_map = { # map of all scenes
     "start" : load_scene1a,
     "room" : load_scene1b,
     "frontyard" : load_scene2,
