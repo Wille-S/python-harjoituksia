@@ -1,7 +1,7 @@
 import save
 from player import Weapon
 
-GLOBAL_COMMANDS = ["status", "tallenna", "ohje", "päävalikko"]
+# GLOBAL_COMMANDS = ["status", "tallenna", "ohje", "päävalikko"]
 
 def change_weapon(player, new_weapon):
     print(f"Vaihoit aseen {player.weapon} aseeseen {new_weapon}")
