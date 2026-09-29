@@ -1,24 +1,8 @@
-import os
+import functions
 import scenes
 import player
 import sys
-
-def clear_screen(): # function to clear console before eg. main_menu and play_guide
-    os.system("cls" if os.name == "nt" else "clear") #both windows and unix covered just in case
-
-def main_menu():
-    clear_screen()
-    with open("intro.txt", "r") as file:
-        content = file.read()
-        print(content)
-
-def play_guide(): #wip
-    clear_screen()
-    with open("guide.txt", "r") as file:
-        content = file.read()
-        print(content)
-    input("\n\nPaina enter paltaksesi päävalikkoon.")
-
+import save
 
 def run_game(player): #core game loop
     scene_dictionary = scenes.scene_map
@@ -30,7 +14,7 @@ def run_game(player): #core game loop
         player.current_scene = current_scene
 
 def start_game():
-    clear_screen()
+    functions.clear_screen()
     while True:
         try:
             age = int(input("Syötä ikä: "))
@@ -49,3 +33,25 @@ def start_game():
         break
     new_player = player.Player(username) #initialize new player
     run_game(new_player)
+
+def choice(desc, options, player):
+    while True:
+        decision = input(desc).lower()
+
+        if decision == "tallenna":
+            save.save_game(player)
+            print("Tallennettu.")
+            continue
+        elif decision == "ohje":
+            print("tallenna = tallenna peli, päävalikko = palaa päävalikkoon......")
+            continue
+        elif decision == "päävalikko":
+            return "__return__"
+        elif decision == "status":
+            print(f"HP: {player.health}")
+            print("Tavarat: " + str(player.items))
+            continue
+        if decision in options:
+            return decision
+        else:
+            print("Ei toimiva komento")
