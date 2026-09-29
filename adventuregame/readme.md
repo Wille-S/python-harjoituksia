@@ -16,7 +16,7 @@ adventuregame/
 ├── player.py           Player sekä Weapon luokka
 ├── enemies.py          Vihollisluokat ml. mahdollinen pomo **TODO**
 ├── scenes.py           Pelin eri kohtaukset ja niiden logiikka
-├── save.py             Pelin tallennus sekä jatkamis logiikka, myös oma json encoder omia luokkia  varten
+├── save.py             Pelin tallennus sekä jatkamis logiikka, myös oma json encoder omia luokkia varten
 ├── constants.py        Vakituiset tiedostopolut
 ├── functions/          Paketti jossa pelin funktioita
 │   ├── __init__.py     Vie funktiot ulos jotta niitä voi kutsua esim. functions.choice
