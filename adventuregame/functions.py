@@ -8,16 +8,15 @@ def clear_screen(): # function to clear console before eg. main_menu and play_gu
 
 def main_menu():
     clear_screen()
-    print("-----Päävalikko-----")
-    print("Valitse syöttämällä valintaa vastaava numero.")
-    print("1. Aloita uusi peli")
-    print("2. Jatka peliä")
-    print("3. Ohjeet")
-    print("4. Lopeta")
+    with open("intro.txt", "r") as file:
+        content = file.read()
+        print(content)
 
 def play_guide(): #wip
     clear_screen()
-    print("Lorem Ipsum")
+    with open("guide.txt", "r") as file:
+        content = file.read()
+        print(content)
     input("\n\nPaina enter paltaksesi päävalikkoon.")
 
 

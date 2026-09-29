@@ -1,0 +1,6 @@
+Tervetuloa pelaamaan seikkailupeliä!\n    
+Valitse syöttämällä valintaa vastaava numero.\n
+1. Aloita uusi peli\n
+2. Jatka peliä\n
+3. Ohjeet\n
+4. Lopeta

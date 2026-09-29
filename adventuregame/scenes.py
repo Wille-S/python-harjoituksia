@@ -21,7 +21,7 @@ def choice(desc, options, player):
         elif decision == "päävalikko":
             return "__return__"
         elif decision == "status":
-            print("HP: " + str(player.health))
+            print(f"HP: {player.health}")
             print("Tavarat: " + str(player.items))
         if decision in options:
             return decision

@@ -3,18 +3,18 @@ import json
 import player
 #todo
 def save_exist():
-    return os.path.exists("tallennus.json")
+    return os.path.exists("save.json")
 
 def save_exists_for(username):
     if not save_exist():
         return False
-    with open("tallennus.json", "r") as f:
+    with open("save.json", "r") as f:
         all_saves = json.load(f)
     return username in all_saves
 
 def save_game(player):
     if save_exist():
-        with open("tallennus.json", "r") as f:
+        with open("save.json", "r") as f:
             all_saves = json.load(f)
     else:
         all_saves = {}
@@ -27,11 +27,11 @@ def save_game(player):
         "weapon": player.weapon
     }
 
-    with open("tallennus.json", "w") as f:
+    with open("save.json", "w") as f:
         json.dump(all_saves, f)
 
 def load_game(username):
-    with open("tallennus.json", "r") as f:
+    with open("save.json", "r") as f:
         all_saves = json.load(f)
     data = all_saves[username]
     return player.Player(
