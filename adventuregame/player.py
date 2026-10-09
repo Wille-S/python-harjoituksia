@@ -5,7 +5,7 @@ class Weapon:
         self.name = name
         self.damage_range = damage_range
     def attack(self):
-        return random.randint(*self.damage_range)
+        return random.randint(*self.damage_range) # random damage between tuple values
 
 
 class Player:
@@ -15,5 +15,5 @@ class Player:
         self.current_scene = current_scene
         self.health = health
         self.weapon = Weapon("Nyrkit", (1, 3))
-        self.animals_defeated = 0
-        self.helped_cub = False
+        self.animals_defeated = 0 # Counter of wolves defeated that impacts the ending
+        self.helped_cub = False # If in forest scene helped cub set this flag to true

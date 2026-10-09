@@ -35,7 +35,7 @@ def start_game():
     new_player = player.Player(username) #initialize new player
     run_game(new_player)
 
-def choice(desc, options, player):
+def choice(desc, options, player): # choice function to reduce repetition in code and to have the same global commands during all stages of the game
     while True:
         decision = input(desc).lower()
 
@@ -57,18 +57,18 @@ def choice(desc, options, player):
         else:
             print("Ei toimiva komento")
             
-def try_escape(player):
+def try_escape(player): # in combat you can try to escape
     chance = 0.5  # 50% chance to escape
     if "pippuri_sumute" in player.items:  # Check if player has an escape item
         chance = 0.9  # Increase chance to 80% if they have a specific item
     return random.random() < chance  # Return True if escape is successful, False otherwise
             
-def start_combat(player, enemy, can_flee=True):
+def start_combat(player, enemy, can_flee=True): # combat function with an additional parameter for deciding if the player can flee e.g the boss cant
     print(f"Törmäsit viholliseen: {enemy.name}!")
-    while enemy.is_alive() and player.health > 0:
+    while enemy.is_alive() and player.health > 0: # while both enemy and player are alive
         print(f"\n{enemy.name} HP: {enemy.health}")
         print(f"Sinun HP: {player.health}")
-        if can_flee:
+        if can_flee: # remove the flee option if can_free=False
             decision = choice("Valitse toiminto (h, p): ", ["h", "p"], player)
         else:
             decision = choice("Valitse toiminto (h): ", ["h"], player)
@@ -87,19 +87,19 @@ def start_combat(player, enemy, can_flee=True):
                 return "escaped"
             else:
                 print("Epäonnistuit pakenemisessa!")
-                enemy_damage = enemy.attack()
+                enemy_damage = enemy.attack() # Enemy attacks player if attempt to flee failed
                 player.health -= enemy_damage
                 print(f"{enemy.name} hyökkäsi ja teki {enemy_damage} vahinkoa sinuun!")
         
     if player.health <= 0:
         print("Hävisit taistelun!")
-        return "lost"
+        return "lost" # return lost to the scene if player loses
     else:
         player.health = 20
         print(f"Voitit taistelun! {enemy.name} kaatui.")
-        return "won"
+        return "won" # return won to the scene if player wins
     
-def handle_game_over(player):
+def handle_game_over(player): # allow player to retry the fight and give option to return to main menu
     print("Kaaduit taistelussa. Peli päättyi.")
     while True:
         decision = choice("Yritä taistelua uudelleen? (k/e): ", ["k", "e"], player)
@@ -111,7 +111,7 @@ def handle_game_over(player):
         else:
             print("Anna kelvollinen vastaus (kyllä/ei).")
 
-def load_ending(player):
+def load_ending(player): # decide which ending will be loaded based on the number of animals defeated that is saves in the player class
     if player.animals_defeated == 0:
         return "good_ending"
     elif player.animals_defeated < 3:

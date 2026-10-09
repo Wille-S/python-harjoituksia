@@ -12,7 +12,7 @@ class Enemy:
     def is_alive(self):
         return self.health > 0
     
-class Boss(Enemy):
+class Boss(Enemy): # boss inherits from enemy but has their own double damage chance to make the fight a bit harder
     def __init__(self, name, health, damage_range, double_damage_chance):
         super().__init__(name, health, damage_range)
         self.double_damage_chance = double_damage_chance

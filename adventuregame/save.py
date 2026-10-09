@@ -27,7 +27,7 @@ def save_exists_for(username):
     all_saves = load_all_saves()
     return username in all_saves
 
-def save_game(player):
+def save_game(player): # save the player object in the json file as a dictionary
     all_saves = load_all_saves()
 
     all_saves[player.username] = {
@@ -40,9 +40,9 @@ def save_game(player):
     }
 
     with open(SAVE_PATH, "w", encoding="utf-8") as f:
-        json.dump(all_saves, f, cls=GameEncoder, ensure_ascii=False)
+        json.dump(all_saves, f, cls=GameEncoder, ensure_ascii=False) # use custom encoder
 
-def load_game(username):
+def load_game(username): # on game load reassamble the player class
     all_saves = load_all_saves()
     data = all_saves[username]
 

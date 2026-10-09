@@ -5,15 +5,15 @@ import functions
 
 # GLOBAL_COMMANDS = ["status", "tallenna", "ohje", "päävalikko"]
 
-def change_weapon(player, new_weapon):
+def change_weapon(player, new_weapon): # changing weapons happens with this function
     print(f"Vaihoit aseen \"{player.weapon.name}\" aseeseen \"{new_weapon.name}\"")
     player.weapon = new_weapon
 def pause (text=""):
     if text:
         print(text)
-    input("\n[Paina enter jatkaaksesi]")
+    input("\n[Paina enter jatkaaksesi]") #pause instead of print so you can advance by pressing enter
 
-def load_scene1a(player):
+def load_scene1a(player): # scenes are functions that are mapped in a dictionary at the end of file
     username = player.username
     pause("Heräsit juuri ja et muista muuta kuin nimesi, " + username)
     decision = functions.choice(
