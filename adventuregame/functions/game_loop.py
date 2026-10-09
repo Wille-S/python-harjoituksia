@@ -59,16 +59,19 @@ def choice(desc, options, player):
             
 def try_escape(player):
     chance = 0.5  # 50% chance to escape
-    if "escape_item" in player.items:  # Check if player has an escape item
-        chance = 0.8  # Increase chance to 80% if they have a specific item
+    if "pippuri_sumute" in player.items:  # Check if player has an escape item
+        chance = 0.9  # Increase chance to 80% if they have a specific item
     return random.random() < chance  # Return True if escape is successful, False otherwise
             
-def start_combat(player, enemy):
+def start_combat(player, enemy, can_flee=True):
     print(f"Törmäsit viholliseen: {enemy.name}!")
     while enemy.is_alive() and player.health > 0:
         print(f"\n{enemy.name} HP: {enemy.health}")
         print(f"Sinun HP: {player.health}")
-        decision = choice("Valitse toiminto (h, p): ", ["h", "p"], player)
+        if can_flee:
+            decision = choice("Valitse toiminto (h, p): ", ["h", "p"], player)
+        else:
+            decision = choice("Valitse toiminto (h): ", ["h"], player)
         
         if decision == "h":
             damage = player.weapon.attack()
@@ -81,7 +84,7 @@ def start_combat(player, enemy):
         elif decision == "p":
             print("Yrität paeta...")
             if try_escape(player):
-                return True
+                return "escaped"
             else:
                 print("Epäonnistuit pakenemisessa!")
                 enemy_damage = enemy.attack()
@@ -90,10 +93,11 @@ def start_combat(player, enemy):
         
     if player.health <= 0:
         print("Hävisit taistelun!")
-        return False
+        return "lost"
     else:
+        player.health = 20
         print(f"Voitit taistelun! {enemy.name} kaatui.")
-        return True
+        return "won"
     
 def handle_game_over(player):
     print("Kaaduit taistelussa. Peli päättyi.")
@@ -106,3 +110,11 @@ def handle_game_over(player):
             return "__return__"
         else:
             print("Anna kelvollinen vastaus (kyllä/ei).")
+
+def load_ending(player):
+    if player.animals_defeated == 0:
+        return "good_ending"
+    elif player.animals_defeated < 3:
+        return "mid_ending"
+    else:
+        return "bad_ending"

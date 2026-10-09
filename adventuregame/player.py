@@ -15,3 +15,5 @@ class Player:
         self.current_scene = current_scene
         self.health = health
         self.weapon = Weapon("Nyrkit", (1, 3))
+        self.animals_defeated = 0
+        self.helped_cub = False

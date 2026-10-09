@@ -17,7 +17,8 @@ class Boss(Enemy):
         super().__init__(name, health, damage_range)
         self.double_damage_chance = double_damage_chance
         
-    def special_attack(self):
-        if random.random() < self.double_damage_chance:
-            return random.randint(*self.damage_range) * 2  # Double damage for special attack
-        return 0
+    def attack(self):
+       dmg = super().attack()
+       if random.random() < self.double_damage_chance:
+           dmg *= 2
+       return dmg
