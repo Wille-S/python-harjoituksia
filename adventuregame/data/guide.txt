@@ -1,1 +1,39 @@
-Tässä on pelin ohjeet!
+================= OHJEET =================
+
+PELIN TAVOITE
+Heräät mökissä täysikuun alla ja et muista muuta kuin nimesi.
+Matkasi päättyy loppuen lopuksi ihmissuden eteen ja se miten
+kohtelit susia matkan varrella määrittää tarinasi lopun.
+
+PELAAMINEN
+- Peli kysyy valintaa useita kertoja ja näihin tulee kirjoittaa
+sulkeissa oleva kirjain ja painaa Enter
+- Kun ruudulla lukee [Paina enter jatkaaksesi] tarinaa etenee näin
+tehdessä
+
+KOMENNOT
+Seuraavat komennot toimivat jokaisessa valintakohtauksessa,
+kirjoita komento sen sijaan että kirjoittaisit valinnan
+
+    tallenna        Tallentaa pelitilanteen nimelläsi
+    status          Näyttää HP:n ja tavarasi
+    ohjeet          Näyttää lyhyen muistutuksen komennoista
+    päävalikko      Palaa päävalikkoon (ei voi tehdä taistelun aikana)
+
+Tallennettua peliä voi jatkaa valitsemalla päävalikosta
+"2. Jatka peliä" ja syöttämällä saman nimen, jolla tallensit
+
+TAISTELU
+- Valinnat taistelussa: h = hyökkää, p = pakene
+- Aseesi tuottama vahinko vaihtelee satunnaisesti valitun aseen
+vahinkovälin sisällä
+- Pakeneminen onnistuu satunnaisesti, jos se epäonnistuu
+vihollinen pääsee tekemään vahinkoa sinuun, tietyllä tavaralla
+pakenemisen onnistuminen onnistuu paljon todennäköisemmin
+- Joistakin taisteluista ei voi paeta (boss)
+- Kun voitat taistelun HP palautuu täysiksi
+- Jos häviät, voit joko yrittää uudelleen tai palata päävalikkoon
+
+VIHJE
+Kaikkia taisteluita ei välttämättä tarvitse taistella.
+Pelissä on pari muuttujaa jotka saattavat vaikuttaa lopputulokseen
