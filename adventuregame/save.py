@@ -37,6 +37,7 @@ def save_game(player): # save the player object in the json file as a dictionary
         "health": player.health,
         "weapon": player.weapon,  # raw object, GameEncoder converts it
         "animals_defeated": player.animals_defeated,
+        "helped_cub": player.helped_cub,
     }
 
     with open(SAVE_PATH, "w", encoding="utf-8") as f:
@@ -53,6 +54,7 @@ def load_game(username): # on game load reassamble the player class
         health=data["health"],
     )
     loaded.animals_defeated = data.get("animals_defeated", 0)
+    loaded.helped_cub = data.get("helped_cub", False)
 
     # json gives the weapon back as a plain dict, so rebuild the object
     weapon_data = data.get("weapon")

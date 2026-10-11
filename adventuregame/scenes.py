@@ -9,6 +9,7 @@ def change_weapon(player, new_weapon): # changing weapons happens with this func
     print(f"Vaihoit aseen \"{player.weapon.name}\" aseeseen \"{new_weapon.name}\"")
     player.weapon = new_weapon
 def pause (text=""):
+    functions.clear_screen()
     if text:
         print(text)
     input("\n[Paina enter jatkaaksesi]") #pause instead of print so you can advance by pressing enter
@@ -18,16 +19,13 @@ def load_scene1a(player): # scenes are functions that are mapped in a dictionary
     pause("Heräsit juuri ja et muista muuta kuin nimesi, " + username)
     decision = functions.choice(
         "Löydät itsesi mökistä. Mitä haluat tehdä? Tutki huonetta (t) tai lähde ulos (u): ",
-        ["t", "u", "cheat"], player
+        ["t", "u"], player
     )
 
     if decision == "u":
-        return "frontyard"
+        return "frontyard" # returns scene 2
     elif decision == "t":
-        return "room"
-    elif decision == "cheat":
-        change_weapon(player, Weapon("cheats", (100, 200)))
-        return "room"
+        return "room" # returns scene1b
 
 def load_scene1b(player):
     decision = functions.choice(
@@ -49,7 +47,7 @@ def load_scene2(player):
         ["v", "o"], player
     )
     if decision == "v":
-        return "village"
+        return "village" #returns scene3_1
     if decision == "o":
         return "cave"
 
@@ -61,8 +59,8 @@ def load_scene3_1(player):
     if outcome == "lost":
         return functions.handle_game_over(player)
     elif outcome == "won":
-        player.animals_defeated +=2
-    return "village2"
+        player.animals_defeated +=2 # add animals defeated to the corresponding flag
+    return "village2" # returns scene3_1b
 
 def load_scene3_1b(player):
     pause("Kävelet kylää eteenpäin kunnes joku ikkunan ja näyttää siltä, että haluaa kertoa jotakin.")
@@ -76,9 +74,9 @@ def load_scene3_1b(player):
         ["m", "t"], player
     )
     if decision == "m":
-        return "forest"
+        return "forest" # returns scene5
     elif decision == "t":
-        return "road"
+        return "road" # returns scene4
 
 def load_scene3_2(player):
     susi = Enemy("Susi", 5, (1, 3))
@@ -88,7 +86,7 @@ def load_scene3_2(player):
     if outcome == "lost":
         return functions.handle_game_over(player)
     elif outcome == "won":
-        player.animals_defeated +=1
+        player.animals_defeated +=1 # add animal defeated to the corresponding flag
     pause("Jatkat luolassa syvemmälle ja löydät uloskäynnin sekä miekan jonka avulla susien lyöminen olisi helppoa.")
     decision = functions.choice(
         "Uloskäynnin ulkopuolella kuulet susia. Otatko miekan mukaan lähtiessäsi ulos? k/e",
@@ -97,9 +95,9 @@ def load_scene3_2(player):
     if decision == "k":
         change_weapon(player, Weapon("miekka", (8, 12)))
         player.items.append("miekka")
-        return "road"
+        return "road" # returns scene 4
     elif decision == "e":
-        return "road"
+        return "road" # returns scene 4
 
 def load_scene4(player):
     sudet = Enemy("Sudet", 15, (3, 7))
@@ -112,25 +110,25 @@ def load_scene4(player):
         if decision == "k":
             pause("Heiluttelet miekkaa villisti ympäriinsä ja sudet lähtevät karkuun.")
             pause("Jatkat tietä eteenpäin.")
-            return functions.load_ending
+            return functions.load_ending(player)
         if decision == "e":
             pause("Joudut taistelemaan susia.")
             outcome = functions.start_combat(player, sudet)
             if outcome == "lost":
                 return functions.handle_game_over(player)
             elif outcome == "won":
-                player.animals_defeated +=3
+                player.animals_defeated +=3 # add animals defeated to the corresponding flag
             pause("Jatkat tietä eteenpäin.")
-            return functions.load_ending
+            return functions.load_ending(player)
     else:
         pause("Joudut taistelemaan susia.")
         outcome = functions.start_combat(player, sudet)
         if outcome == "lost":
             return functions.handle_game_over(player)
         elif outcome == "won":
-            player.animals_defeated +=3
+            player.animals_defeated +=3 # add animals defeated to the corresponding flag
         pause("Jatkat tietä eteenpäin.")
-        return functions.load_ending
+        return functions.load_ending(player)
 
 def load_scene5(player):
     pause("Olet metsässä ja etenet hitaasti oksia huitoen eteenpäin.")
@@ -142,7 +140,7 @@ def load_scene5(player):
     if decision == "k":
         player.helped_cub = True
     pause("Jatkat matkaa eteenpäin.")
-    return functions.load_ending
+    return functions.load_ending(player)
 
 def ending_1(player):
     pause("Löydät itse seisomassa suuren ihmissuden edessä.")
@@ -156,7 +154,7 @@ def ending_2(player):
     pause("Löydät itse seisomassa suuren ihmissuden edessä.")
     pause("Olento katsoo sinua niinkuin oli päättämässä kohtalostasi.")
     pause("Mieleesi tulee kaikki kohtaamiset susien kanssa.")
-    if player.helped_cub == True:
+    if player.helped_cub == True: # check if player has helped_cub flag
         pause("Muistat myös sen, että autoit sudenpentua metsässä.")
     else:
         pause("Ihmissusi hyökkää kimppuusi kostaakseen sutensa")

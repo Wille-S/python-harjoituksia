@@ -7,6 +7,7 @@ import save
 
 def run_game(player): #core game loop
     scene_dictionary = scenes.scene_map
+    functions.clear_screen()
     current_scene = player.current_scene
     while current_scene is not None:
         current_scene = scene_dictionary[current_scene](player)
@@ -60,7 +61,7 @@ def choice(desc, options, player): # choice function to reduce repetition in cod
 def try_escape(player): # in combat you can try to escape
     chance = 0.5  # 50% chance to escape
     if "pippuri_sumute" in player.items:  # Check if player has an escape item
-        chance = 0.9  # Increase chance to 80% if they have a specific item
+        chance = 0.9  # Increase chance to 90% if they have a specific item
     return random.random() < chance  # Return True if escape is successful, False otherwise
             
 def start_combat(player, enemy, can_flee=True): # combat function with an additional parameter for deciding if the player can flee e.g the boss cant
@@ -68,7 +69,7 @@ def start_combat(player, enemy, can_flee=True): # combat function with an additi
     while enemy.is_alive() and player.health > 0: # while both enemy and player are alive
         print(f"\n{enemy.name} HP: {enemy.health}")
         print(f"Sinun HP: {player.health}")
-        if can_flee: # remove the flee option if can_free=False
+        if can_flee: # remove the flee option if can_flee=False
             decision = choice("Valitse toiminto (h, p): ", ["h", "p"], player)
         else:
             decision = choice("Valitse toiminto (h): ", ["h"], player)
@@ -83,7 +84,10 @@ def start_combat(player, enemy, can_flee=True): # combat function with an additi
                 print(f"{enemy.name} hyökkäsi ja teki {enemy_damage} vahinkoa sinuun!")
         elif decision == "p":
             print("Yrität paeta...")
+            input("\n[Paina enter jatkaaksesi]")
             if try_escape(player):
+                print("Pakenit onnistuneesti!")
+                input("\n[Paina enter jatkaaksesi]")
                 return "escaped"
             else:
                 print("Epäonnistuit pakenemisessa!")
@@ -93,10 +97,12 @@ def start_combat(player, enemy, can_flee=True): # combat function with an additi
         
     if player.health <= 0:
         print("Hävisit taistelun!")
+        input("\n[Paina enter jatkaaksesi]")
         return "lost" # return lost to the scene if player loses
     else:
-        player.health = 20
+        player.health = 20 # returns player health to 20 after combat
         print(f"Voitit taistelun! {enemy.name} kaatui.")
+        input("\n[Paina enter jatkaaksesi]")
         return "won" # return won to the scene if player wins
     
 def handle_game_over(player): # allow player to retry the fight and give option to return to main menu

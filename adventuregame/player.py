@@ -1,5 +1,5 @@
 import random
-
+# weapon class the decides the damage roll during combat
 class Weapon:
     def __init__(self, name, damage_range):
         self.name = name
@@ -7,7 +7,7 @@ class Weapon:
     def attack(self):
         return random.randint(*self.damage_range) # random damage between tuple values
 
-
+# player class that determines the players current scene/location, their items, health and story flags
 class Player:
     def __init__(self, username, current_scene="start", items = None, health = 20):
         self.username = username
