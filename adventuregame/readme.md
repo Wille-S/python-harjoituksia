@@ -49,6 +49,33 @@ Seuraavat komennot toimivat kaikissa pelin valintakohtauksissa, koska kaikki val
 - `ohje`: näyttää lyhyen muistutuksen komennoista
 - `päävalikko` palaa päävalikkoon
 
+## Pelin perussilmukka
+
+Pelisilmukka ajaa pelaajan kohtaus kerrallaan eteenpäin:
+
+Peli koostuu kahdesta sisäkkäisestä silmukasta: päävalikon silmukasta ja
+pelisilmukasta. Pelisilmukka ajaa pelaajaa kohtaus kerrallaan eteenpäin.
+ 
+```
+main.py: while True  ──►  päävalikko ──► 1. Aloita uusi peli
+                                          │
+                                          ▼
+                        start_game(): kysy ikä ja nimi, luo Player
+                                          │
+                                          ▼
+                    run_game(player): pelisilmukka (game_loop.py)
+                    ┌──────────────────────────────────────────┐
+                    │ while current_scene ei ole None:         │
+                    │   hae kohtausfunktio scene_map:ista      │
+                    │   kutsu sitä: seuraava = funktio(player) │
+                    │   tallenna player.current_scene          │
+                    └──────────────────────────────────────────┘
+                                          │ (loppukohtaus palauttaa None
+                                          │  tai "__return__")
+                                          ▼
+                                   takaisin päävalikkoon
+```
+
 ## Kestävä kehitys
 
 Pelin keskeinen valinta liittyy luonnon ja eläinten kunnioittamiseen: paras loppu saadaan kun pelaaja ei satuta villieläimiä tai auttaa niitä. Pelissä kylän asukas muistuttaa tästä pelaajaa ja pelin lopussa ihmissusi tuomitsee pelaajan valintojensa perusteella. Metsässä pelaaja voi myös auttaa sudenpentua joka voi auttaa positiivisesti lopputulokseen.
