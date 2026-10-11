@@ -30,6 +30,8 @@ def start_game():
             username = input("Syötä nimi: ")
             if len(username) < 3: #username has to be 3 letters or more
                 print("Nimen täytyy olla ainakin kolme merkkiä pitkä.")
+            elif save.save_exists_for(username):
+                print("Tällä nimellä on jo tallennettu peli. Valitse toinen nimi tai jatka peliä päävalikosta.")    
             else:
                 break
         break
